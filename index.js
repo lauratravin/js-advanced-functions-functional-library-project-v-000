@@ -194,9 +194,17 @@ flatten: function(collection, shallow, newArr=[]) {
 //REDUCE--------------------------------------------------------------------------------
 //REDUCE--------------------------------------------------------------------------------
 
-    functions: function() {
+functions: function(obj) {
+ const functionNames = []
 
-    },
+ for (let key in obj) {
+   if (typeof obj[key] === "function"){
+     functionNames.push(key)
+   }
+ }
+
+ return functionNames.sort()
+},
 
 
   }
