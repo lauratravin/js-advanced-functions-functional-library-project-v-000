@@ -137,7 +137,53 @@ flatten: function(collection, shallow, newArr=[]) {
  },
 
 
+ uniqSorted: function(collection, iteratee) {
+   const sorted = [collection[0]]
+   for (let idx = 1; idx < collection.length; idx++) {
+     if (sorted[idx-1] !== collection[idx])
+       sorted.push(collection[idx])
+   }
+   return sorted
+ },
 
+ uniq: function(collection, sorted=false, iteratee=false) {
+   if (sorted) {
+     return fi.uniqSorted(collection, iteratee)
+   } else if (!iteratee) {
+     return Array.from(new Set(collection))
+   } else {
+     const modifiedVals = new Set()
+     const uniqVals = new Set()
+     for (let val of collection) {
+       const moddedVal = iteratee(val)
+       if (!modifiedVals.has(moddedVal)) {
+         modifiedVals.add(moddedVal)
+         uniqVals.add(val)
+       }
+     }
+     return Array.from(uniqVals)
+   }
+ },
+
+ keys: function(object) {
+   let keysArray = []
+
+   for (const key in object) {
+     keysArray.push(key)
+   }
+
+   return keysArray
+ },
+
+     values: function(object) {
+   let valuesArray = []
+
+   for (const key in object) {
+     valuesArray.push(object[key])
+   }
+
+   return valuesArray
+ },
 
 
 //REDUCE--------------------------------------------------------------------------------
